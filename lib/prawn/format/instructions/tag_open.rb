@@ -20,7 +20,7 @@ module Prawn
           draw_width(document, draw_state)
           draw_destination(document, draw_state)
           draw_link(document, draw_state)
-          draw_underline(document, draw_state)
+          draw_underline(document, draw_state, options)
           draw_strikethrough(document, draw_state)
         end
 
@@ -78,9 +78,9 @@ module Prawn
             add_effect(Effects::Link.new(tag[:style][:target], draw_state[:dx]), draw_state)
           end
 
-          def draw_underline(document, draw_state)
+          def draw_underline(document, draw_state, options)
             return unless tag[:style][:text_decoration] == :underline
-            add_effect(Effects::Underline.new(draw_state[:dx], @state), draw_state)
+            add_effect(Effects::Underline.new(draw_state[:dx], @state, options), draw_state)
           end
           
           def draw_strikethrough(document, draw_state)
