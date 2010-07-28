@@ -21,6 +21,7 @@ module Prawn
           draw_destination(document, draw_state)
           draw_link(document, draw_state)
           draw_underline(document, draw_state)
+          draw_strikethrough(document, draw_state)
         end
 
         def start_verbatim?
@@ -81,7 +82,12 @@ module Prawn
             return unless tag[:style][:text_decoration] == :underline
             add_effect(Effects::Underline.new(draw_state[:dx], @state), draw_state)
           end
-
+          
+          def draw_strikethrough(document, draw_state)
+            return unless tag[:style][:text_decoration] == :strikethrough
+            add_effect(Effects::Strikethrough.new(draw_state[:dx], @state), draw_state)
+          end
+          
           def add_effect(effect, draw_state)
             tag[:effects] ||= []
             tag[:effects].push(effect)
